@@ -8,6 +8,10 @@
 <body>
     <h2>Account Holder:{{account.name}}</h2>
     <p>Account Number:{{account.account_number}}</p>
-    <h3>Balance:₹ {{balane}}</h3>
+    <h3>Balance:₹{{balance}}</h3>
+
+    <a href="{%url 'deposit' account.id %}">Deposit Money</a>
+    <a href ="{%url 'withdraw' account.id %}">Withdraw Money</a>
+
 </body>
 </html>

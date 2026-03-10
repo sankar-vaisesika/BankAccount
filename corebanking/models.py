@@ -9,9 +9,8 @@ class BankAccount(models.Model):
         ("SAVINGS","saving"),
         ("CURRENT","current"),
     )
-
     name=models.CharField(max_length=100)
-    account_number=models.CharField(max_length=10,unique=True)
+    account_number=models.CharField(max_length=10,unique=True,blank=True)
     account_type=models.CharField(max_length=10,choices=ACCOUNT_TYPES)
     created_at=models.DateTimeField(auto_now_add=True)
 
@@ -37,22 +36,21 @@ class BankAccount(models.Model):
 
         return self.get_balance()
     
-    def withdraw(self,amount):
+    def withdraw(self, amount):
 
-        balance=self.get_balance()
+        balance = self.get_balance()
 
-        if self.account_type=="SAVINGS":
+        if amount <= 0:
+            return "Invalid amount"
 
-            if amount>balance:
-                raise ValueError("Insufficient amount")
+        if amount > balance:
+            return "Insufficient balance"
 
-        elif self.account_type=="CURRENT":
-            limit=1000
-
-            if amount>limit+balance:
-                raise ValueError("overdraft exceeded")
-
-        Transaction.objects.create(account=self,transaction_type="WITHDRAW",amount=amount)
+        Transaction.objects.create(
+            account=self,
+            transaction_type="WITHDRAW",
+            amount=amount
+        )
 
         return self.get_balance()
     

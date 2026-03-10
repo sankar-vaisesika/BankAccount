@@ -20,5 +20,8 @@ from corebanking import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/<int:pk>/balance/',views.AccountBalanceView.as_view())
+    path('accounts/<int:pk>/balance/',views.AccountBalanceView.as_view(),name="balance"),
+    path('accounts/<int:pk>/deposit/',views.DepositView.as_view(),name='deposit'),
+    path('accounts/<int:pk>/withdraw/',views.WithdrawView.as_view(),name='withdraw'),
 ]
+
