@@ -2,6 +2,8 @@ from django.views import View
 from django.shortcuts import render, get_object_or_404
 from .models import BankAccount
 from django.http import JsonResponse
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 class DepositView(View):
     def get(self,request,*args,**kwargs):
         pk=kwargs.get("pk")
